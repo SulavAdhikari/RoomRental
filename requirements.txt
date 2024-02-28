@@ -1,0 +1,6 @@
+django
+pillow
+scikit-learn
+pandas
+numpy
+bs4

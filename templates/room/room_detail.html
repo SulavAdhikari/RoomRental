@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+.content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 5%;
+}
+</style>
+
+<div class="content">
+
+    
+    <div class="card" style="width: 40rem;">
+        <img src="/media/{{room.photos}}" class="card-img-top" alt="room photo">
+        <div class="card-body">
+            <h5 class="card-title">Room in {{room.location}}</h5>
+            <p class="card-text">{{room.bhk}}BHK room With Monthly rent of: {{room.rent}}</p>
+            <p class="card-text">Has {{room.bathroom}} bathrooms</p>
+            
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Posted by {{room.owner.user.username}}</li>
+            {% if room.owner.user != user %}
+                
+            <a href="{% url 'room_apply' room_id=room.pk %}">
+                <li class="list-group-item">Send Application</li>
+            </a>
+            {% endif %}
+    
+        </ul>
+        {% if room.owner == profile%}
+            
+        {% for app in application %}
+        <div class="card-body">
+            
+            <p class="card-link">Applicant: {{app.applicant.user.username}}</p>
+            <p class="card-link">Contact Info: {{app.applicant.contact_info}}</p>
+            {% if not app.accepted %}
+                <a href="{% url 'accept_applicant' app_id=app.pk %}">
+                
+                    
+                    <li class="list-group-item">Accept</details></li>
+                    
+                    
+                </a>
+                {% else %}
+                
+                    <li class="list-group-item">Accepted, They Can See your contact info.</details></li>
+
+                {% endif %}
+        </div>
+        {% endfor %}
+
+        {% endif %}
+    </div>
+    
+</div>
+    
+    
+
+
+{% endblock %}

@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<style>
+    .center {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 600px;
+        align-items: center;    
+    }
+
+    .cinput {
+        border: 1px solid #ccc;
+        display: inline-block;
+        padding: 6px 12px;
+        cursor: pointer;
+    }
+
+
+</style>
+<div class="center">
+<h1>Post Your Room for Rent.</h1>
+    <br>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 center" >
+        <div class="col center" >
+            
+            <form enctype="multipart/form-data" action="{% url 'post_room' %}" method="POST" class="card shadow-sm form" >
+            {% for item in form %}
+                <br>
+                {{item.errors}}
+                
+            {% endfor %}
+                
+            {% csrf_token %}
+                
+
+                <div class="form-group center card-body">
+                    <label for="exampleFormControlFile1" >Photo file input</label>
+                    <input type="file" class="cinput form-control-file" id="exampleFormControlFile1" name="photos">
+                    <br>
+                    <label for="exampleFormControlFile2">Location</label>
+                    <input type="text" class="cinput form-control-file" id="exampleFormControlFile2" name="location">
+                    <br>
+                    <label for="exampleFormControlFile3">rent</label>
+                    <input type="text" class="cinput form-control-file" id="price" name="rent">
+                    <br>
+                    <label for="exampleFormControlFile3">BHK</label>
+                    <input type="text" class="cinput form-control-file" id="bhk" oninput="trackFormInputs()" name="bhk">
+                    <br>
+                    <label for="exampleFormControlFile3">Bathrooms</label>
+                    <input type="text" class="cinput form-control-file" id="bathroom" oninput="trackFormInputs()" name="bathroom">
+                    <br>
+                    <div class="form-group" style="display: none;" id="suggest">
+                        <button type="button" class="btn btn-info btn-lg btn-block" onclick="makePrediction()">Suggest Price</button>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <button class="btn btn-info btn-lg btn-block" type="submit">Submit</button>
+                    </div>
+                </div>
+            </form>
+            
+        </div>
+        
+    </div>
+</div>
+
+
+<script>
+
+    function trackFormInputs() {
+        var bhkValue = document.getElementById('bhk').value;
+        var bathroomValue = document.getElementById('bathroom').value;
+        var suggestDiv = document.getElementById('suggest');
+
+        if (isIntegerable(bhkValue) && isIntegerable(bathroomValue)) {
+            suggestDiv.style.display = 'block';
+        } else {
+            suggestDiv.style.display = 'none';
+        }
+    }
+
+    function isIntegerable(value) {
+        return /^\d+$/.test(value);
+    }
+
+    function makePrediction() {
+        var bhkValue = document.getElementById('bhk').value;
+        var bathroomValue = document.getElementById('bathroom').value;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/predict/?bhk=' + bhkValue + '&bathroom=' + bathroomValue, true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var responseData = JSON.parse(xhr.responseText);
+                document.getElementById('price').value = responseData.prediction;
+            }
+        };
+        xhr.send();
+    }
+
+
+</script>
+
+{% endblock %}

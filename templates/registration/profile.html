@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+
+
+
+
+
+<style>
+  .center {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 500px;
+      align-items: center;    
+  }
+
+  .width{
+      width: 355px;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+    
+  a {
+      text-decoration: none;
+  }
+  .room{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    width: 100%;
+    padding-left: 2%;
+    padding-right: 2%;
+  }
+</style>
+
+
+
+
+
+
+
+
+
+<!-- Posts Begins Here -->
+
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 center">
+
+
+  <h1>My Posted Rooms.</h1>
+ <hr>
+
+    {% if rooms %}
+      <div class="room">
+
+        {% for room in rooms %}
+        <a href="{% url 'room_detail' id=room.pk %}">
+          
+          <div class="col width">
+
+            <div class="card shadow-sm">
+              <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="/media/{{room.photos}}" >
+              <div class="card-body">
+                <p class="card-text">Location: {{ room.location }}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-outline-secondary">Details</button>
+                  </div>
+                  <small class="text-body-secondary">{{room.rent}}</small>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          
+        </a>      
+        {% endfor %}
+      </div>
+    {% else %}
+
+
+    <h2 class="col">
+      No Rooms Posted
+    </h2>
+    {% endif %}
+
+
+</div>
+
+<hr>
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 center">
+
+
+  <h1>My Applied Rooms.</h1>
+ <hr>
+
+    {% if applications %}
+      <div class="room">
+
+        {% for app in applications %}
+        <a href="{% url 'room_detail' id=app.room.pk %}">
+          
+          <div class="col width">
+
+            <div class="card shadow-sm">
+              <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="/media/{{app.room.photos}}" >
+              <div class="card-body">
+                <p class="card-text">Location: {{ app.room.location }}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <p class="cart-text">Accepted: <b> {{app.accepted}} </b></p>
+                    {% if app.accepted %}
+                    <br>
+                    <p class="card-text">Contact info: <b>{{ app.room.owner.contact_info }}</b></p>
+                    {% endif %}
+                  </div>
+                  <small class="text-body-secondary">{{app.room.rent}}</small>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          
+        </a>      
+        {% endfor %}
+      </div>
+    {% else %}
+
+
+    <h2 class="col">
+      No Rooms Posted
+    </h2>
+    {% endif %}
+
+    
+</div>
+
+
+
+{% endblock %}
