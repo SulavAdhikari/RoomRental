@@ -38,9 +38,10 @@ def post_room(request):
 
 
 def marketplace(request):
-    rooms = Room.objects.all()
     if request.GET.get("location"):
-        rooms = rooms.objects.filter(location__contains='location')
+        rooms = Room.objects.filter(location__contains='location')
+    else:
+        rooms = Room.objects.all()
     return render(request, 'room/marketplace.html', {'rooms': rooms})
 
 @login_required
@@ -106,6 +107,8 @@ def user_login(request):
             user = form.get_user()
             print("login success")
             login(request, user)
+            if user.is_superuser:
+                return redirect('admin_dashboard')
             return redirect('user_profile')
         form_errors = "Invalid Password username combination"  
     else:
