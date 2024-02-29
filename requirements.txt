@@ -4,3 +4,5 @@ scikit-learn
 pandas
 numpy
 bs4
+matplotlib
+matplotlib_inline
