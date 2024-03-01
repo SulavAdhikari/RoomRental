@@ -30,11 +30,11 @@ http://127.0.0.1:8000
 ## Machine Learning
 
 This uses A linear regression model to calculate a suitable rent price from BHK and number of bathrooms.
-the training data was scraped and contains real data from kathmandu valley
+the training data was scraped and contains real data from kathmandu valley  <br>
 
-Model: Linear Regression
-Type: Multiple Linear Regression
-Data Collection: Scraped
+Model: Linear Regression  <br>
+Type: Multiple Linear Regression  <br>
+Data Collection: Scraped  <br>
 
 # Website
 
