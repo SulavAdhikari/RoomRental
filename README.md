@@ -41,30 +41,30 @@ Data Collection: Scraped
 ## Backend 
 
 By using python and Django. The Web app has all the basic features a ecommerce-like app needs.
-like authentication, uploading images, dashboard and a admin dashboard
-
-Language: Python
-Framewrok: Django
+like authentication, uploading images, dashboard and a admin dashboard <br>
+ <br>
+Language: Python  <br>
+Framewrok: Django  <br>
 
 ## Frontend
 
-Basic HTML template is passed on to the django server to return to the use
+Basic HTML template is passed on to the django server to return to the use  <br> 
 
-Language: HTML
-Framework: Bootstrap
+Language: HTML <br>
+Framework: Bootstrap  <br>
 
 ## Database
 
-Uses Django's built in ORM, is connected to sqlite database for simplicity
+Uses Django's built in ORM, is connected to sqlite database for simplicity  <br>
 
-DBMS: SQLite3
+DBMS: SQLite3  <br>
 
 ## Features
 
-Authentication
-Posting Room
-Admin Dashboard
-Image upload
-Room Price suggestion
-Filtering through location
+Authentication  <br>
+Posting Room  <br>
+Admin Dashboard  <br>
+Image upload  <br>
+Room Price suggestion  <br>
+Filtering through location  <br>
 
